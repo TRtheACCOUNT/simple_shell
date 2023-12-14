@@ -21,7 +21,7 @@ int hsh(data_t *data, char **av)
 		r = get_input(data);
 		if (r != -1)
 		{
-			set_data(data, av);
+			st_data(data, av);
 			builtin_ret = find_builtin(data);
 			if (builtin_ret == -1)
 				fnd_cmd(data);
