@@ -37,7 +37,7 @@ int main(int ac, char **av)
 		}
 		data->rdfd = fd;
 	}
-	pplt_env_lst(data);
+	pplt_env_list(data);
 	rd_hstry(data);
 	hsh(data, av);
 	return (EXIT_SUCCESS);
