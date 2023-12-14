@@ -14,7 +14,7 @@ int hsh(data_t *data, char **av)
 
 	while (r != -1 && builtin_ret != -2)
 	{
-		clear_data(data);
+		clr_data(data);
 		if (reciprocative(data))
 			_ownputs("$ ");
 		_owneputchar(BUF_FLUSH);
@@ -139,7 +139,7 @@ void frk_cmd(data_t *data)
 	{
 		if (execve(data->path, data->argv, gt_nvrn(data)) == -1)
 		{
-			free_data(data, 1);
+			fr_data(data, 1);
 			if (errno == EACCES)
 				exit(126);
 			exit(1);
