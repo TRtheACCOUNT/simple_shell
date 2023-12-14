@@ -30,7 +30,7 @@ void st_data(data_t *data, char **av)
 			data->argv = malloc(sizeof(char *) * 2);
 			if (data->argv)
 			{
-				data->argv[0] = _strdup(data->arg);
+				data->argv[0] = _ownstrdup(data->arg);
 				data->argv[1] = NULL;
 			}
 		}
