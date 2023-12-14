@@ -83,7 +83,7 @@ int replace_alias(data_t *data)
 
 	for (i = 0; i < 10; i++)
 	{
-		node = node_starts_with(data->alias, data->argv[0], '=');
+		node = nd_strts_wth(data->alias, data->argv[0], '=');
 		if (!node)
 			return (0);
 		free(data->argv[0]);
@@ -120,20 +120,20 @@ int replace_vars(data_t *data)
 					_ownstrdup(cnvrt_nmbr(data->status, 10, 0)));
 			continue;
 		}
-		if (!own_strcmp(data->argv[i], "$$"))
+		if (!_ownstrcmp(data->argv[i], "$$"))
 		{
 			replace_string(&(data->argv[i]),
 					_ownstrdup(cnvrt_nmbr(getpid(), 10, 0)));
 			continue;
 		}
-		node = node_starts_with(data->env, &data->argv[i][1], '=');
+		node = nd_strts_wth(data->env, &data->argv[i][1], '=');
 		if (node)
 		{
 			replace_string(&(data->argv[i]),
 					_ownstrdup(_ownstrchr(node->str, '=') + 1));
 			continue;
 		}
-		replace_string(&data->argv[i], _strdup(""));
+		replace_string(&data->argv[i], _ownstrdup(""));
 
 	}
 	return (0);

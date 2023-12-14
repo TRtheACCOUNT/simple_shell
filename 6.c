@@ -53,7 +53,7 @@ void puts_error(data_t *data, char *estr)
  */
 int ownputs_d(int npt, int fd)
 {
-	int (*__putchar)(char) = _putchar;
+	int (*__putchar)(char) = _ownputchar;
 	int i, count = 0;
 	unsigned int _abs_, current;
 

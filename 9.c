@@ -9,7 +9,7 @@ char **gt_nvrn(data_t *data)
 {
 	if (!data->environ || data->env_changed)
 	{
-		data->environ = list_to_strings(data->env);
+		data->environ = lst_t_strngs(data->env);
 		data->env_changed = 0;
 	}
 
@@ -36,7 +36,7 @@ int _owunsetenv(data_t *data, char *var)
 		p = ownstarts_with(node->str, var);
 		if (p && *p == '=')
 		{
-			data->env_changed = dlt_nd_ndx(&(data->env), i);
+			data->env_changed = dlte_nd_ndx(&(data->env), i);
 			i = 0;
 			node = data->env;
 			continue;
@@ -49,7 +49,7 @@ int _owunsetenv(data_t *data, char *var)
 
 /**
  * _stenv - Initialize or modify a variable
- * @info: Struct containing arguments
+ * @data: Struct containing arguments
  * @var: the string env var property
  * @value: the string env var value
  *  Return: Always 0

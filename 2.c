@@ -16,8 +16,8 @@ int _thexit(data_t *data)
 		{
 			data->status = 2;
 			puts_error(data, "Illegal number: ");
-			own_eputs(data->argv[1]);
-			own_eputchar('\n');
+			_owneputs(data->argv[1]);
+			_owneputchar('\n');
 			return (1);
 		}
 		data->err_num = _cnvrtnt(data->argv[1]);
@@ -48,7 +48,7 @@ int _oncd(data_t *data)
 		else
 			chdir_ret = chdir(dir);
 	}
-	else if (own_strcmp(data->argv[1], "-") == 0)
+	else if (_ownstrcmp(data->argv[1], "-") == 0)
 	{
 		if (!_gtenv(data, "prpwd="))
 		{
@@ -56,7 +56,7 @@ int _oncd(data_t *data)
 			_ownputchar('\n');
 			return (1);
 		}
-		_ownputs(_gtenv(data, "oldpwd=")), own_putchar('\n');
+		_ownputs(_gtenv(data, "oldpwd=")), _ownputchar('\n');
 		chdir_ret = chdir((dir = _gtenv(data, "oldpwd=")) ? dir : "/");
 	}
 	else
@@ -64,12 +64,12 @@ int _oncd(data_t *data)
 	if (chdir_ret == -1)
 	{
 		puts_error(data, "can't ");
-		_owneputs(data->argv[1]), own_eputchar('\n');
+		_owneputs(data->argv[1]), _owneputchar('\n');
 	}
 	else
 	{
-		_ownstenv(data, "oldpwd", _gtenv(data, "pwd="));
-		_ownstenv(data, "pwd", getcwd(buffer, 1024));
+		_stenv(data, "oldpwd", _gtenv(data, "pwd="));
+		_stenv(data, "pwd", getcwd(buffer, 1024));
 	}
 	return (0);
 }

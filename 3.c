@@ -23,7 +23,7 @@ int cnvrt_alias(data_t *data, char *str)
 	char *p, c;
 	int ret;
 
-	p = own_strchr(str, '=');
+	p = _ownstrchr(str, '=');
 	if (!p)
 		return (1);
 	c = *p;
@@ -45,7 +45,7 @@ int st_alias(data_t *data, char *str)
 {
 	char *p;
 
-	p = own_strchr(str, '=');
+	p = _ownstrchr(str, '=');
 	if (!p)
 		return (1);
 	if (!*++p)
@@ -69,10 +69,10 @@ int puts_alias(list_t *nd)
 	{
 		p = _ownstrchr(nd->str, '=');
 		for (a = nd->str; a <= p; a++)
-		own_putchar(*a);
-		own_putchar('\'');
-		own_puts(p + 1);
-		own_puts("'\n");
+		_ownputchar(*a);
+		_ownputchar('\'');
+		_ownputs(p + 1);
+		_ownputs("'\n");
 		return (0);
 	}
 	return (1);

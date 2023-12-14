@@ -27,7 +27,7 @@ size_t lst_ln(const list_t *h)
 char **lst_t_strngs(list_t *head)
 {
 	list_t *node = head;
-	size_t i = list_len(head), j;
+	size_t i = lst_ln(head), j;
 	char **strs;
 	char *str;
 
@@ -67,7 +67,7 @@ size_t prnt_lst(const list_t *h)
 
 	while (h)
 	{
-		_ownputs(convert_number(h->num, 10, 0));
+		_ownputs(cnvrt_nmbr(h->num, 10, 0));
 		_ownputchar(':');
 		_ownputchar(' ');
 		_ownputs(h->str ? h->str : "(nil)");

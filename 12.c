@@ -95,7 +95,7 @@ size_t prnt_lst_str(const list_t *h)
 }
 
 /**
- * dlt_nd_ndx - deletes node at given index
+ * dlte_nd_ndx - deletes node at given index
  * @head: address of pointer to first node
  * @index: index of node to delete
  *

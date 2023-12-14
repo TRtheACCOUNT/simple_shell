@@ -26,7 +26,7 @@ char *gt_hstry_fl(data_t *data)
 
 /**
  * wrt_hstry – create a file
- * @info: struct
+ * @data: struct
 * Return: 1 or -1
  */
 int wrt_hstry(data_t *data)
@@ -63,7 +63,7 @@ int rd_hstry(data_t *data)
 	int i, last = 0, linecount = 0;
 	ssize_t fd, rdlen, fsize = 0;
 	struct stat st;
-	char *buf = NULL, *filename = gt_hstry_fle(data);
+	char *buf = NULL, *filename = gt_hstry_fl(data);
 
 	if (!filename)
 		return (0);
@@ -96,14 +96,14 @@ int rd_hstry(data_t *data)
 	free(buf);
 	data->histcount = linecount;
 	while (data->histcount-- >= HIST_MAX)
-		dlt_nd_ndx(&(data->history), 0);
+		dlte_nd_ndx(&(data->history), 0);
 	rnmbr_hstry(data);
 	return (data->histcount);
 }
 
 /**
  * bld_hstry_lst - adds entry to a history linked list
- * @info: Struct containing arguments.
+ * @data: Struct containing arguments.
  * @buf: buffer
  * @linecount: the history linecount, histcount
  *

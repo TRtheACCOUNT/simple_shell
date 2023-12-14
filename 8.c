@@ -18,7 +18,7 @@ ssize_t npt_buf(data_t *data, char **buf, size_t *len)
 		free(*buf);
 		*buf = NULL;
 		signal(SIGINT, sigintHandler);
-		r = _owngetline(info, buf, &len_p);
+		r = _owngetline(data, buf, &len_p);
 		if (r > 0)
 		{
 			if ((*buf)[r - 1] == '\n')
@@ -63,7 +63,7 @@ ssize_t get_input(data_t *data)
 		check_chain(data, buf, &j, i, len);
 		while (j < len) 
 		{
-			if (is_chain(data, buf, &j))
+			if (chain(data, buf, &j))
 				break;
 			j++;
 		}
@@ -85,7 +85,7 @@ ssize_t get_input(data_t *data)
 
 /**
  * read_buf - reads a buffer
- * @info: parameter struct
+ * @data: parameter struct
  * @buf: buffer
  * @i: size
  *
@@ -97,7 +97,7 @@ ssize_t read_buf(data_t *data, char *buf, size_t *i)
 
 	if (*i)
 		return (0);
-	r = read(data->readfd, buf, 1024);
+	r = read(data->rdfd, buf, 1024);
 	if (r >= 0)
 		*i = r;
 	return (r);
@@ -125,7 +125,7 @@ int _owngetline(data_t *data, char **ptr, size_t *length)
 	if (i == len)
 		i = len = 0;
 
-	r = read_buf(info, buf, &len);
+	r = read_buf(data, buf, &len);
 	if (r == -1 || (r == 0 && len == 0))
 		return (-1);
 

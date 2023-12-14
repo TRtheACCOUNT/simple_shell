@@ -24,7 +24,7 @@ void st_data(data_t *data, char **av)
 	data->fname = av[0];
 	if (data->arg)
 	{
-		data->argv = strtow(data->arg, " \t");
+		data->argv = strtok(data->arg, " \t");
 		if (!data->argv)
 		{
 			data->argv = malloc(sizeof(char *) * 2);
@@ -65,9 +65,9 @@ void fr_data(data_t *data, int all)
 			fr_lst(&(data->alias));
 		ffr(data->environ);
 			data->environ = NULL;
-		bfree((void **)data->cmd_buf);
-		if (data->readfd > 2)
-			close(data->readfd);
+		free((void **)data->cmd_buf);
+		if (data->rdfd > 2)
+			close(data->rdfd);
 		_ownputchar(-1);
 	}
 }

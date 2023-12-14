@@ -2,7 +2,7 @@
 
 /**
  * hsh - main shell loop
- * @data: info struct
+ * @data: data struct
  * @av: the argument vector from main()
  *
  * Return: 0 or 1 or error
@@ -14,21 +14,21 @@ int hsh(data_t *data, char **av)
 
 	while (r != -1 && builtin_ret != -2)
 	{
-		clear_info(data);
+		clear_data(data);
 		if (reciprocative(data))
-			_puts("$ ");
-		_eputchar(BUF_FLUSH);
+			_ownputs("$ ");
+		_owneputchar(BUF_FLUSH);
 		r = get_input(data);
 		if (r != -1)
 		{
-			set_info(data, av);
+			set_data(data, av);
 			builtin_ret = find_builtin(data);
 			if (builtin_ret == -1)
-				find_cmd(data);
+				fnd_cmd(data);
 		}
 		else if (reciprocative(data))
-			_putchar('\n');
-		free_info(info, 0);
+			_ownputchar('\n');
+		fr_data(data, 0);
 	}
 	wrt_hstry(data);
 	fr_nf(data, 1);
@@ -45,7 +45,7 @@ int hsh(data_t *data, char **av)
 
 /**
  * fnd_bltn - finds a builtin command
- * @data: the parameter & return info struct
+ * @data: the parameter & return data struct
  *
  * Return: -1 if builtin not found,
  * 	0 if builtin executed successfully,
@@ -79,7 +79,7 @@ int find_builtin(data_t *data)
 
 /**
  * fnd_cmd - finds a command in PATH
- * @data: info struct
+ * @data: data struct
  *
  * Return: void
  */
@@ -100,7 +100,7 @@ void fnd_cmd(data_t *data)
 	if (!k)
 		return;
 
-	path = fnd_pth(info, _gtenv(data, "PATH="), data->argv[0]);
+	path = fnd_pth(data, _gtenv(data, "PATH="), data->argv[0]);
 	if (path)
 	{
 		data->path = path;
@@ -108,9 +108,9 @@ void fnd_cmd(data_t *data)
 	}
 	else
 	{
-		if ((reciprocative(data) || _getenv(data, "PATH=")
+		if ((reciprocative(data) || _gtenv(data, "PATH=")
 					|| data->argv[0][0] == '/') && s_cmd(data, data->argv[0]))
-			fork_cmd(info);
+			frk_cmd(data);
 		else if (*(data->arg) != '\n')
 		{
 			data->status = 127;
@@ -137,7 +137,7 @@ void frk_cmd(data_t *data)
 	}
 	if (child_pid == 0)
 	{
-		if (execve(data->path, info->argv, get_environ(info)) == -1)
+		if (execve(data->path, data->argv, gt_nvrn(data)) == -1)
 		{
 			free_data(data, 1);
 			if (errno == EACCES)
