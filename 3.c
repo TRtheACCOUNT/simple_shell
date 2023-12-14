@@ -28,7 +28,7 @@ int cnvrt_alias(data_t *data, char *str)
 		return (1);
 	c = *p;
 	*p = 0;
-	ret = dlt_nd_ndx(&(data->alias),
+	ret = dlte_nd_ndx(&(data->alias),
 		gt_nd_ndx(data->alias, nd_strts_wth(data->alias, str, -1)));
 	*p = c;
 	return (ret);
